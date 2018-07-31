@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python quick," />
 
 
 
@@ -84,17 +84,18 @@
 
 
 
-<meta name="description" content="yuanzhiroc&apos;s blog">
-<meta name="keywords" content="blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yuanzhiroc&#39;s blogs">
-<meta property="og:url" content="https://yuanzhiroc.github.io/categories/test/index.html">
+<meta name="description" content="how to sorter faster">
+<meta name="keywords" content="python quick">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python sorted compare">
+<meta property="og:url" content="https://yuanzhiroc.github.io/2018/07/31/python-sorted-and-obj-sorted-compare/index.html">
 <meta property="og:site_name" content="yuanzhiroc&#39;s blogs">
-<meta property="og:description" content="yuanzhiroc&apos;s blog">
+<meta property="og:description" content="how to sorter faster">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-31T03:47:31.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yuanzhiroc&#39;s blogs">
-<meta name="twitter:description" content="yuanzhiroc&apos;s blog">
+<meta name="twitter:title" content="python sorted compare">
+<meta name="twitter:description" content="how to sorter faster">
 
 
 
@@ -112,7 +113,7 @@
   };
 </script>
 
-  <title> Category: test | yuanzhiroc's blogs </title>
+  <title> python sorted compare | yuanzhiroc's blogs </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -133,7 +134,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right  ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,47 +265,150 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        test
-        <small>Category</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python sorted compare
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2018-07-31T10:49:59+08:00" content="2018-07-31">
+              2018-07-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="MySortData"><a href="#MySortData" class="headerlink" title="MySortData"></a>MySortData</h2><p>Now that I have some data and need to sort it, I need to find a faster sorting method in the sorting method.Data as shown below:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="number">1</span>:&#123;<span class="string">'total_score'</span>:<span class="number">50</span>, <span class="string">'compare_score'</span>:<span class="number">49</span>, <span class="string">'name'</span>:<span class="string">'roc'</span>&#125;,.....&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The above is a set of data, and I need to sort them according to the score fieldin the dictionary</p>
+<h2 id="Compare-sorted-obj-sort"><a href="#Compare-sorted-obj-sort" class="headerlink" title="Compare sorted() obj.sort()"></a>Compare sorted() obj.sort()</h2><p>I try sorted() Methon:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sorted(data.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>][<span class="string">'total_score'</span>], reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>OK! I get the result!  it’s average run time is : 7.5841E-06<br>And I try obj.sort() Methon:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.sort(key=<span class="keyword">lambda</span> x:x[<span class="string">'compare_score'</span>], reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>it’s average run time is : 6.5666E-06<br>This result doesn’t seem to make any difference</p>
+<h2 id="Use-itemgetter"><a href="#Use-itemgetter" class="headerlink" title="Use itemgetter"></a>Use itemgetter</h2><p>Because of my depth of listing, I can’t use itemgetter directly. So first define it<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get_position = itemgetter(<span class="number">1</span>) <span class="comment"># get index 1</span></span><br><span class="line">get_compare = itemgetter(<span class="string">'compare_score'</span>) <span class="comment"># get compare_score data</span></span><br><span class="line">get_total = itemgetter(<span class="string">'total_score'</span>) <span class="comment"># get total_score data</span></span><br></pre></td></tr></table></figure></p>
+<p>Now use sorted():<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sorted(data.items(), key=<span class="keyword">lambda</span> x: get_total(get_position(x)), reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Average run time: 1.18327E-05<br>??????????????????</p>
+<p>See sort():<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.sort(key=<span class="keyword">lambda</span> x: get_compare(get_position(x)), reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Average run time: 1.01018E-05</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>From the above results, we can see that there is not much difference between using sorted () and using obj. sort (), and obj. sort () may be a little bit faster. But the speed difference with itemgetter is very large.</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2018/07/30/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-30T17:47:00+08:00"
-              content="2018-07-30" >
-          07-30
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python-quick/" rel="tag">#python quick</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/30/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -312,6 +416,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -331,8 +439,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/blog-logo.jpg"
@@ -382,6 +499,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySortData"><span class="nav-number">1.</span> <span class="nav-text">MySortData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compare-sorted-obj-sort"><span class="nav-number">2.</span> <span class="nav-text">Compare sorted() obj.sort()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Use-itemgetter"><span class="nav-number">3.</span> <span class="nav-text">Use itemgetter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">4.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -485,6 +613,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
