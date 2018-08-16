@@ -1,47 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[hasattr 对字典使用无效]]></title>
-    <url>%2F2018%2F08%2F16%2F%E5%AF%B9dict%E4%BD%BF%E7%94%A8hasattr%E7%9A%84%E9%94%99%E8%AF%AF%2F</url>
-    <content type="text"><![CDATA[原因今天在判断字典的内容的时候使用了hasattr来判断字典中是否有这个key1hasattr(dict,key) 这样做是错误的，在运行时无法达到我所预期的效果 正确的做法：1key in dict.keys() 由于自己已经这样用了多次，记录一下提醒自己]]></content>
+<search> 
+  
+    
+    <entry>
+      <title>hasattr 对字典使用无效</title>
+      <link href="/2018/08/16/%E5%AF%B9dict%E4%BD%BF%E7%94%A8hasattr%E7%9A%84%E9%94%99%E8%AF%AF/"/>
+      <url>/2018/08/16/%E5%AF%B9dict%E4%BD%BF%E7%94%A8hasattr%E7%9A%84%E9%94%99%E8%AF%AF/</url>
+      <content type="html"><![CDATA[<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>今天在判断字典的内容的时候使用了hasattr来判断字典中是否有这个key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hasattr(dict,key)</span><br></pre></td></tr></table></figure></p><p>这样做是错误的，在运行时无法达到我所预期的效果</p><h2 id="正确的做法："><a href="#正确的做法：" class="headerlink" title="正确的做法："></a>正确的做法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key in dict.keys()</span><br></pre></td></tr></table></figure><p>由于自己已经这样用了多次，记录一下提醒自己</p>]]></content>
+      
       <categories>
-        <category>python</category>
+          
+          <category> python </category>
+          
       </categories>
-      <tags>
-        <tag>errorUse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Explain]]></title>
-    <url>%2F2018%2F07%2F31%2FExplain%2F</url>
-    <content type="text"><![CDATA[个人速写编程语言： 在校期间使用：java 工作时使用： python使用过的框架： Java spring spring-mvc mybatis python django uwsgi Nginx djangoRESTframework开始写博客时间 2018-07-30 学习经历2018 毕业于湖南师范大学 工作工作单位：深圳兴导科技工作时间：2018.06.13-至今]]></content>
+      
+      
+        <tags>
+            
+            <tag> errorUse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Explain</title>
+      <link href="/2018/07/31/Explain/"/>
+      <url>/2018/07/31/Explain/</url>
+      <content type="html"><![CDATA[<h2 id="个人速写"><a href="#个人速写" class="headerlink" title="个人速写"></a>个人速写</h2><p>编程语言：<br>    在校期间使用：java<br>    工作时使用： python<br>使用过的框架：<br>    Java    spring  spring-mvc mybatis<br>    python    django uwsgi Nginx djangoRESTframework<br>开始写博客时间 2018-07-30</p><h3 id="学习经历"><a href="#学习经历" class="headerlink" title="学习经历"></a>学习经历</h3><p>2018 毕业于湖南师范大学</p><h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>工作单位：深圳兴导科技<br>工作时间：2018.06.13-至今</p>]]></content>
+      
       <categories>
-        <category>article</category>
+          
+          <category> article </category>
+          
       </categories>
-      <tags>
-        <tag>article</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python sorted compare]]></title>
-    <url>%2F2018%2F07%2F31%2Fpython-sorted-and-obj-sorted-compare%2F</url>
-    <content type="text"><![CDATA[MySortDataNow that I have some data and need to sort it, I need to find a faster sorting method in the sorting method.Data as shown below:1data = &#123;1:&#123;'total_score':50, 'compare_score':49, 'name':'roc'&#125;,.....&#125; The above is a set of data, and I need to sort them according to the score fieldin the dictionary Compare sorted() obj.sort()I try sorted() Methon:1result = sorted(data.items(), key=lambda x:x[1]['total_score'], reverse=True) OK! I get the result! it’s average run time is : 7.5841E-06And I try obj.sort() Methon:1result.sort(key=lambda x:x['compare_score'], reverse=True) it’s average run time is : 6.5666E-06This result doesn’t seem to make any difference Use itemgetterBecause of my depth of listing, I can’t use itemgetter directly. So first define it123get_position = itemgetter(1) # get index 1get_compare = itemgetter('compare_score') # get compare_score dataget_total = itemgetter('total_score') # get total_score data Now use sorted():1result = sorted(data.items(), key=lambda x: get_total(get_position(x)), reverse=True) Average run time: 1.18327E-05?????????????????? See sort():1result.sort(key=lambda x: get_compare(get_position(x)), reverse=True) Average run time: 1.01018E-05 SummaryFrom the above results, we can see that there is not much difference between using sorted () and using obj. sort (), and obj. sort () may be a little bit faster. But the speed difference with itemgetter is very large.]]></content>
+      
+      
+        <tags>
+            
+            <tag> article </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>python sorted compare</title>
+      <link href="/2018/07/31/python-sorted-and-obj-sorted-compare/"/>
+      <url>/2018/07/31/python-sorted-and-obj-sorted-compare/</url>
+      <content type="html"><![CDATA[<h2 id="MySortData"><a href="#MySortData" class="headerlink" title="MySortData"></a>MySortData</h2><p>Now that I have some data and need to sort it, I need to find a faster sorting method in the sorting method.Data as shown below:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="number">1</span>:&#123;<span class="string">'total_score'</span>:<span class="number">50</span>, <span class="string">'compare_score'</span>:<span class="number">49</span>, <span class="string">'name'</span>:<span class="string">'roc'</span>&#125;,.....&#125;</span><br></pre></td></tr></table></figure></p><p>The above is a set of data, and I need to sort them according to the score fieldin the dictionary</p><h2 id="Compare-sorted-obj-sort"><a href="#Compare-sorted-obj-sort" class="headerlink" title="Compare sorted() obj.sort()"></a>Compare sorted() obj.sort()</h2><p>I try sorted() Methon:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sorted(data.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>][<span class="string">'total_score'</span>], reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>OK! I get the result!  it’s average run time is : 7.5841E-06<br>And I try obj.sort() Methon:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.sort(key=<span class="keyword">lambda</span> x:x[<span class="string">'compare_score'</span>], reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>it’s average run time is : 6.5666E-06<br>This result doesn’t seem to make any difference</p><h2 id="Use-itemgetter"><a href="#Use-itemgetter" class="headerlink" title="Use itemgetter"></a>Use itemgetter</h2><p>Because of my depth of listing, I can’t use itemgetter directly. So first define it<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get_position = itemgetter(<span class="number">1</span>) <span class="comment"># get index 1</span></span><br><span class="line">get_compare = itemgetter(<span class="string">'compare_score'</span>) <span class="comment"># get compare_score data</span></span><br><span class="line">get_total = itemgetter(<span class="string">'total_score'</span>) <span class="comment"># get total_score data</span></span><br></pre></td></tr></table></figure></p><p>Now use sorted():<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sorted(data.items(), key=<span class="keyword">lambda</span> x: get_total(get_position(x)), reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>Average run time: 1.18327E-05<br>??????????????????</p><p>See sort():<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.sort(key=<span class="keyword">lambda</span> x: get_compare(get_position(x)), reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>Average run time: 1.01018E-05</p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>From the above results, we can see that there is not much difference between using sorted () and using obj. sort (), and obj. sort () may be a little bit faster. But the speed difference with itemgetter is very large.</p>]]></content>
+      
       <categories>
-        <category>python</category>
+          
+          <category> python </category>
+          
       </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F07%2F30%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to [Hexo] This is your very first post. Check [documentation] for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting] or you can ask me on [GitHub] Quick StartCreate a new post1$ hexo new "My New Post" More info: [Writing] Run server1$ hexo server More info: [Server] Generate static files1$ hexo generate More info: [Generating] Deploy to remote sites1$ hexo deploy More info: [Deployment]]]></content>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2018/07/30/hello-world/"/>
+      <url>/2018/07/30/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to [Hexo] This is your very first post. Check [documentation] for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting] or you can ask me on [GitHub]</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: [Writing]</p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: [Server]</p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: [Generating]</p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: [Deployment]</p>]]></content>
+      
       <categories>
-        <category>test</category>
+          
+          <category> test </category>
+          
       </categories>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> test </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
 </search>
