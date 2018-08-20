@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="test," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="default test">
-<meta name="keywords" content="test">
+<meta name="description" content="python 定时任务">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://yuanzhiroc.github.io/2018/07/30/hello-world/index.html">
+<meta property="og:title" content="python 定时任务">
+<meta property="og:url" content="https://yuanzhiroc.github.io/2018/08/20/python定时任务/index.html">
 <meta property="og:site_name" content="yuanzhiroc&#39;s blogs">
-<meta property="og:description" content="default test">
+<meta property="og:description" content="python 定时任务">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-31T02:25:37.530Z">
+<meta property="og:updated_time" content="2018-08-20T02:45:03.882Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="default test">
+<meta name="twitter:title" content="python 定时任务">
+<meta name="twitter:description" content="python 定时任务">
 
 
 
@@ -113,7 +113,7 @@
   };
 </script>
 
-  <title> Hello World | yuanzhiroc's blogs </title>
+  <title> python 定时任务 | yuanzhiroc's blogs </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -286,7 +286,7 @@
             
             
               
-                Hello World
+                python 定时任务
               
             
           </h1>
@@ -298,8 +298,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2018-07-30T17:47:00+08:00" content="2018-07-30">
-              2018-07-30
+            <time itemprop="dateCreated" datetime="2018-08-20T09:47:04+08:00" content="2018-08-20">
+              2018-08-20
             </time>
           </span>
 
@@ -312,8 +312,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/test/" itemprop="url" rel="index">
-                    <span itemprop="name">test</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -350,15 +350,18 @@
       
 
       
-        <p>Welcome to [Hexo] This is your very first post. Check [documentation] for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting] or you can ask me on [GitHub]</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: [Writing]</p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: [Server]</p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: [Generating]</p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: [Deployment]</p>
+        <h2 id="自己写一个定时任务"><a href="#自己写一个定时任务" class="headerlink" title="自己写一个定时任务"></a>自己写一个定时任务</h2><h3 id="首先创建一个执行时间"><a href="#首先创建一个执行时间" class="headerlink" title="首先创建一个执行时间"></a>首先创建一个执行时间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sch_time = datetime.datetime(2018,8,20,10,0,0)</span><br></pre></td></tr></table></figure>
+<h3 id="写一个函数用来测试定时任务是否执行"><a href="#写一个函数用来测试定时任务是否执行" class="headerlink" title="写一个函数用来测试定时任务是否执行"></a>写一个函数用来测试定时任务是否执行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def fun(str_msg):</span><br><span class="line">    print(&quot;hello I&apos;m run&quot;, str_msg)</span><br></pre></td></tr></table></figure>
+<h3 id="定时任务的功能"><a href="#定时任务的功能" class="headerlink" title="定时任务的功能"></a>定时任务的功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">def sch_fun(sch_time):</span><br><span class="line">    flag = 0 #是否执行</span><br><span class="line">    run_time = sched_timer.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">    # 转换成统一格式的字符串进行比较</span><br><span class="line">    while True:</span><br><span class="line">        now = datetime.datetime.now()</span><br><span class="line">        now_time = now.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">        # 得到当前时间并转换成统一格式的字符串进行比较</span><br><span class="line">        if now_time == run_time and flag == 0:</span><br><span class="line">            fun(&quot;time 1&quot;) # 执行</span><br><span class="line">            flag = 1</span><br><span class="line">        else: # 上面部分就是定时任务的执行，下面是间隔任务处理</span><br><span class="line">            if flag == 1:</span><br><span class="line">                sched_timer = sched_timer+datetime.timedelta(seconds=5)</span><br><span class="line">                run_time = sched_time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">                flag = 0</span><br><span class="line">                # 如果执行过了调到下一个执行时间（5秒后)</span><br><span class="line">            else:</span><br><span class="line">                if sched_timer &lt;= now:</span><br><span class="line">                # 调整时间</span><br><span class="line">                    sched_timer = sched_timer + datetime.timedelta(seconds=5)</span><br><span class="line">                    run_time = sched_timer.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br></pre></td></tr></table></figure>
+<p>然后进行调用就可以运行了</p>
+<h2 id="使用schedule"><a href="#使用schedule" class="headerlink" title="使用schedule"></a>使用schedule</h2><p>这个我感觉不怎么好用（但是比自己写的要好） 就贴上从别人那找来的代码好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import schedule</span><br><span class="line">import time,datetime</span><br><span class="line">def job():</span><br><span class="line">    print(&quot;I&apos;m working...&quot;)</span><br><span class="line"></span><br><span class="line">schedule.every(10).minutes.do(job)</span><br><span class="line"># 每10分钟执行一次</span><br><span class="line">schedule.every().hour.do(job)</span><br><span class="line"># 每小时执行一次</span><br><span class="line">schedule.every().day.at(&quot;10:30&quot;).do(job)</span><br><span class="line"># 每天的10：30执行一次</span><br><span class="line">schedule.every().monday.do(job)</span><br><span class="line"># 每周一执行一次</span><br><span class="line">schedule.every().wednesday.at(&quot;13:14&quot;).do(job)</span><br><span class="line"># 每个星期三的13：14分执行一次</span><br><span class="line"># 在job后面直接加参数即可传参‘，’分隔</span><br><span class="line">while True:</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(1)</span><br><span class="line"># time.sleep(1)这里就是我运行时发现麻烦的地方！</span><br><span class="line"># 不sleep他就会一直占用cpu运行判断是否到了执行时间</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用APscheduler"><a href="#使用APscheduler" class="headerlink" title="使用APscheduler"></a>使用APscheduler</h2><p>安装包的包名就是apscheduler</p>
+<h3 id="引入包"><a href="#引入包" class="headerlink" title="引入包"></a>引入包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from apscheduler.schedulers.blocking import BlockingScheduler</span><br></pre></td></tr></table></figure>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p>这里只写了执行的流程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 初始化</span><br><span class="line">sche = BlockingScheduler()</span><br><span class="line"># 增加任务</span><br><span class="line">sche.add_job(任务)</span><br><span class="line"># 执行</span><br><span class="line">sche.start()</span><br></pre></td></tr></table></figure></p>
+<h3 id="定义执行的任务"><a href="#定义执行的任务" class="headerlink" title="定义执行的任务"></a>定义执行的任务</h3><p>这个是要在定时任务里执行的方法（函数）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def my_job(str_msg):</span><br><span class="line">    # 定义执行的任务</span><br><span class="line">    print(&quot;hello run!!!!&quot;,str_msg)</span><br></pre></td></tr></table></figure></p>
+<h3 id="增加间隔式的任务"><a href="#增加间隔式的任务" class="headerlink" title="增加间隔式的任务"></a>增加间隔式的任务</h3><p>间隔式任务我这里是指不管现实的时间，只管运行时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 参数（函数名，类型，关键字参数）</span><br><span class="line">sched.add_job(my_job, &apos;interval&apos;, seconds=20, args=(&quot;seconds 20&quot;,))</span><br><span class="line"># 每隔20秒运行</span><br><span class="line">sched.add_job(my_job, &apos;interval&apos;,hours=1, minutes=1, seconds=1, args=(&quot;minute 1 seconds 1&quot;,))</span><br><span class="line"># 每隔一个小时一分一秒运行</span><br></pre></td></tr></table></figure></p>
+<h3 id="增加定时式的任务"><a href="#增加定时式的任务" class="headerlink" title="增加定时式的任务"></a>增加定时式的任务</h3><p>定时任务是指与现实时间挂钩<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sched.add_job(my_job, &apos;cron&apos;, second=11, args=(&quot;every second 11&quot;,))</span><br><span class="line"># 每分钟的11s</span><br><span class="line">sched.add_job(my_job, &apos;cron&apos;, minute=3, args=(&quot;ever minute 3&quot;,))</span><br><span class="line"># 每小时的第3分钟</span><br></pre></td></tr></table></figure></p>
+<h3 id="更多的参数请参考"><a href="#更多的参数请参考" class="headerlink" title="更多的参数请参考"></a>更多的参数请参考</h3><p>本文参考地址：(<a href="https://www.cnblogs.com/luxiaojun/p/6567132.html#[3990018]" target="_blank" rel="noopener">https://www.cnblogs.com/luxiaojun/p/6567132.html#[3990018]</a>)</p>
 
       
     </div>
@@ -380,7 +383,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/test/" rel="tag">#test</a>
+            <a href="/tags/python/" rel="tag">#python</a>
           
         </div>
       
@@ -389,13 +392,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/08/16/对dict使用hasattr的错误/" rel="next" title="hasattr 对字典使用无效">
+                <i class="fa fa-chevron-left"></i> hasattr 对字典使用无效
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/31/python-sorted-and-obj-sorted-compare/" rel="prev" title="python sorted compare">
-                python sorted compare <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -509,7 +512,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自己写一个定时任务"><span class="nav-number">1.</span> <span class="nav-text">自己写一个定时任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先创建一个执行时间"><span class="nav-number">1.1.</span> <span class="nav-text">首先创建一个执行时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写一个函数用来测试定时任务是否执行"><span class="nav-number">1.2.</span> <span class="nav-text">写一个函数用来测试定时任务是否执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定时任务的功能"><span class="nav-number">1.3.</span> <span class="nav-text">定时任务的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用schedule"><span class="nav-number">2.</span> <span class="nav-text">使用schedule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用APscheduler"><span class="nav-number">3.</span> <span class="nav-text">使用APscheduler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引入包"><span class="nav-number">3.1.</span> <span class="nav-text">引入包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方式"><span class="nav-number">3.2.</span> <span class="nav-text">使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义执行的任务"><span class="nav-number">3.3.</span> <span class="nav-text">定义执行的任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加间隔式的任务"><span class="nav-number">3.4.</span> <span class="nav-text">增加间隔式的任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加定时式的任务"><span class="nav-number">3.5.</span> <span class="nav-text">增加定时式的任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多的参数请参考"><span class="nav-number">3.6.</span> <span class="nav-text">更多的参数请参考</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
