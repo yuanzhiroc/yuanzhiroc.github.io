@@ -1,196 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>SQL 分组查询</title>
-      <link href="/2018/09/12/SQL-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E5%8F%8ACASE-WHEN/"/>
-      <url>/2018/09/12/SQL-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E5%8F%8ACASE-WHEN/</url>
-      <content type="html"><![CDATA[<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>在出租日志表中查询出今天所有用户的使用时长。用户使用时长不固定，次数不固定</p><h2 id="查询分析"><a href="#查询分析" class="headerlink" title="查询分析"></a>查询分析</h2><p>先查询今天所有的记录，然后根据用户的id进行分组，将同一用户的使用时长进行统计</p><h2 id="case-WHEN-的使用"><a href="#case-WHEN-的使用" class="headerlink" title="case WHEN 的使用"></a>case WHEN 的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ABS(timestampdiff(Hour,case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 00:00:00&apos; end,</span><br><span class="line">           case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 08:00:00&apos; end))</span><br></pre></td></tr></table></figure><h2 id="第一版SQL"><a href="#第一版SQL" class="headerlink" title="第一版SQL"></a>第一版SQL</h2><p>内容包括：根据用户的开始使用时间来判断用户是否是连续的在使用，并计算今天的使用时长。分组排序限制条目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">user_id, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else  ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_time</span><br><span class="line">FROM</span><br><span class="line">use_record  GROUP BY user_id ORDER BY use_time DESC LIMIT 50</span><br></pre></td></tr></table></figure></p><h2 id="第二版SQL"><a href="#第二版SQL" class="headerlink" title="第二版SQL"></a>第二版SQL</h2><p>由于用户ID展示出来很不好看，需要将用户名称展示出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">a.username, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else  ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_time</span><br><span class="line">FROM</span><br><span class="line">use_record as b</span><br><span class="line">LEFT JOIN pre_ucenter_members as a ON b.user_id = a.uid GROUP BY a.username ORDER BY use_time DESC LIMIT 50</span><br></pre></td></tr></table></figure></p>]]></content>
-      
+<search>
+  <entry>
+    <title><![CDATA[SQL 分组查询]]></title>
+    <url>%2F2018%2F09%2F12%2FSQL-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E5%8F%8ACASE-WHEN%2F</url>
+    <content type="text"><![CDATA[使用场景在出租日志表中查询出今天所有用户的使用时长。用户使用时长不固定，次数不固定 查询分析先查询今天所有的记录，然后根据用户的id进行分组，将同一用户的使用时长进行统计 case WHEN 的使用12SELECT ABS(timestampdiff(Hour,case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 00:00:00&apos; end, case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 08:00:00&apos; end)) 第一版SQL内容包括：根据用户的开始使用时间来判断用户是否是连续的在使用，并计算今天的使用时长。分组排序限制条目1234SELECTuser_id, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_timeFROMuse_record GROUP BY user_id ORDER BY use_time DESC LIMIT 50 第二版SQL由于用户ID展示出来很不好看，需要将用户名称展示出来12345SELECTa.username, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_timeFROMuse_record as bLEFT JOIN pre_ucenter_members as a ON b.user_id = a.uid GROUP BY a.username ORDER BY use_time DESC LIMIT 50]]></content>
       <categories>
-          
-          <category> SQL </category>
-          
+        <category>SQL</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> SQL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>python 逆向生成Models求</title>
-      <link href="/2018/09/08/python-%E9%80%86%E5%90%91%E7%94%9F%E6%88%90MODELS/"/>
-      <url>/2018/09/08/python-%E9%80%86%E5%90%91%E7%94%9F%E6%88%90MODELS/</url>
-      <content type="html"><![CDATA[<h1 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h1><blockquote><p>python manage.py inspectdb &gt; models.py</p></blockquote><h1 id="sqlachemy"><a href="#sqlachemy" class="headerlink" title="sqlachemy"></a>sqlachemy</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 必须先安装sqlacodegen</span><br><span class="line">sqlacodegen mysql+pymysql://user:password@IP_ADDR:3306/database_name &gt; models.py</span><br></pre></td></tr></table></figure>]]></content>
-      
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python 逆向生成Models求]]></title>
+    <url>%2F2018%2F09%2F08%2Fpython-%E9%80%86%E5%90%91%E7%94%9F%E6%88%90MODELS%2F</url>
+    <content type="text"><![CDATA[Django python manage.py inspectdb &gt; models.py sqlachemy12# 必须先安装sqlacodegensqlacodegen mysql+pymysql://user:password@IP_ADDR:3306/database_name &gt; models.py]]></content>
       <categories>
-          
-          <category> python, Django, SQL </category>
-          
+        <category>python</category>
+        <category>Django</category>
+        <category>SQL</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python, Django, SQL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>SQL UPDATE更新多条记录中的一条</title>
-      <link href="/2018/09/07/UPDATE-%E8%AF%AD%E5%8F%A5%E6%9B%B4%E6%96%B0%E5%A4%9A%E6%9D%A1%E8%AE%B0%E5%BD%95%E4%B8%AD%E7%9A%84%E4%B8%80%E6%9D%A1/"/>
-      <url>/2018/09/07/UPDATE-%E8%AF%AD%E5%8F%A5%E6%9B%B4%E6%96%B0%E5%A4%9A%E6%9D%A1%E8%AE%B0%E5%BD%95%E4%B8%AD%E7%9A%84%E4%B8%80%E6%9D%A1/</url>
-      <content type="html"><![CDATA[<h1 id="问题环境"><a href="#问题环境" class="headerlink" title="问题环境"></a>问题环境</h1><p>数据库中有这样一张表record<br>id | box | paper | owner_id<br>– | – | – | –<br>1 | 1 | 0 | NULL<br>2 | 1 | 1 | NULL<br>3 | 1 | 2 | NULL<br>4 | 2 | 0 | NULL<br>5 | 2 | 1 | NULL<br>6 | 2 | 2 | NULL<br>7 | 2 | 3 | NULL</p><h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>我有这样一条查询语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update record set owner_id = user_id where box = 1 and owner_id is NULL</span><br></pre></td></tr></table></figure></p><p>本来的目的是想让一个用户占用一个盒子空纸张的记录，但这样的查询语句会让用户成为盒子里所有纸张的占有者</p><h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>经过查询后的解决方案：LIMIT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE record set owner_id = user_id where box = 1 and owner_id is NULL limit 1</span><br></pre></td></tr></table></figure></p><p>这样就可以让更新的数据只作用于一条</p>]]></content>
-      
+      <tags>
+        <tag>SQL</tag>
+        <tag>python</tag>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SQL UPDATE更新多条记录中的一条]]></title>
+    <url>%2F2018%2F09%2F07%2FUPDATE-%E8%AF%AD%E5%8F%A5%E6%9B%B4%E6%96%B0%E5%A4%9A%E6%9D%A1%E8%AE%B0%E5%BD%95%E4%B8%AD%E7%9A%84%E4%B8%80%E6%9D%A1%2F</url>
+    <content type="text"><![CDATA[问题环境数据库中有这样一张表recordid | box | paper | owner_id– | – | – | –1 | 1 | 0 | NULL2 | 1 | 1 | NULL3 | 1 | 2 | NULL4 | 2 | 0 | NULL5 | 2 | 1 | NULL6 | 2 | 2 | NULL7 | 2 | 3 | NULL 问题原因我有这样一条查询语句1update record set owner_id = user_id where box = 1 and owner_id is NULL 本来的目的是想让一个用户占用一个盒子空纸张的记录，但这样的查询语句会让用户成为盒子里所有纸张的占有者 解决问题经过查询后的解决方案：LIMIT1UPDATE record set owner_id = user_id where box = 1 and owner_id is NULL limit 1 这样就可以让更新的数据只作用于一条]]></content>
       <categories>
-          
-          <category> SQL </category>
-          
+        <category>SQL</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> SQL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Django 跨域请求</title>
-      <link href="/2018/09/07/Django-%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
-      <url>/2018/09/07/Django-%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/</url>
-      <content type="html"><![CDATA[<h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>暂时也没有了解问题的原因是怎样的，直接说解决方法吧</p><h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="安装corsheaders"><a href="#安装corsheaders" class="headerlink" title="安装corsheaders"></a>安装corsheaders</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; pip install corsheaders</span><br></pre></td></tr></table></figure><h2 id="settings文件"><a href="#settings文件" class="headerlink" title="settings文件"></a>settings文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">ALLOW_HOSTS = [&apos;*&apos;] # 允许访问的地址</span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_ALLOW_HEADERS = ( # 允许添加自定义的头部HEADER</span><br><span class="line">    &apos;Uid&apos;, # 自定义</span><br><span class="line">    &apos;Authorization&apos; # 这个默认会有</span><br><span class="line">)</span><br><span class="line">CORS_ALLOW_METHODS = (</span><br><span class="line">    &apos;*&apos;</span><br><span class="line">    # &apos;GET&apos;,</span><br><span class="line">    # &apos;POST&apos;,</span><br><span class="line">    # &apos;OPTIONS&apos;,</span><br><span class="line">)</span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    &apos;corsheaders&apos;,</span><br><span class="line">    .....</span><br><span class="line">]</span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    &apos;corsheaders.middleware.CorsMiddleware&apos;,</span><br><span class="line">    &apos;django.middleware.common.CommonMiddleware&apos;,</span><br><span class="line">    ....</span><br><span class="line">]</span><br><span class="line"># 示范 #################################</span><br><span class="line">CORS_ORIGIN_WHITELIST = (</span><br><span class="line">    &apos;*&apos;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">CORS_ALLOW_METHODS = (</span><br><span class="line">    &apos;DELETE&apos;,</span><br><span class="line">    &apos;GET&apos;,</span><br><span class="line">    &apos;OPTIONS&apos;,</span><br><span class="line">    &apos;PATCH&apos;,</span><br><span class="line">    &apos;POST&apos;,</span><br><span class="line">    &apos;PUT&apos;,</span><br><span class="line">    &apos;VIEW&apos;,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">CORS_ALLOW_HEADERS = (</span><br><span class="line">    &apos;XMLHttpRequest&apos;,</span><br><span class="line">    &apos;X_FILENAME&apos;,</span><br><span class="line">    &apos;accept-encoding&apos;,</span><br><span class="line">    &apos;authorization&apos;,</span><br><span class="line">    &apos;content-type&apos;,</span><br><span class="line">    &apos;dnt&apos;,</span><br><span class="line">    &apos;origin&apos;,</span><br><span class="line">    &apos;user-agent&apos;,</span><br><span class="line">    &apos;x-csrftoken&apos;,</span><br><span class="line">    &apos;x-requested-with&apos;,</span><br><span class="line">    &apos;Pragma&apos;,</span><br><span class="line">)</span><br><span class="line">###########################################</span><br></pre></td></tr></table></figure>]]></content>
-      
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Django 跨域请求]]></title>
+    <url>%2F2018%2F09%2F07%2FDjango-%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%2F</url>
+    <content type="text"><![CDATA[问题原因暂时也没有了解问题的原因是怎样的，直接说解决方法吧 解决方案安装corsheaders1&gt; pip install corsheaders settings文件1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950ALLOW_HOSTS = [&apos;*&apos;] # 允许访问的地址CORS_ORIGIN_ALLOW_ALL = TrueCORS_ALLOW_HEADERS = ( # 允许添加自定义的头部HEADER &apos;Uid&apos;, # 自定义 &apos;Authorization&apos; # 这个默认会有)CORS_ALLOW_METHODS = ( &apos;*&apos; # &apos;GET&apos;, # &apos;POST&apos;, # &apos;OPTIONS&apos;,)INSTALLED_APPS = [ &apos;corsheaders&apos;, .....]MIDDLEWARE = [ &apos;corsheaders.middleware.CorsMiddleware&apos;, &apos;django.middleware.common.CommonMiddleware&apos;, ....]# 示范 #################################CORS_ORIGIN_WHITELIST = ( &apos;*&apos;)CORS_ALLOW_METHODS = ( &apos;DELETE&apos;, &apos;GET&apos;, &apos;OPTIONS&apos;, &apos;PATCH&apos;, &apos;POST&apos;, &apos;PUT&apos;, &apos;VIEW&apos;,)CORS_ALLOW_HEADERS = ( &apos;XMLHttpRequest&apos;, &apos;X_FILENAME&apos;, &apos;accept-encoding&apos;, &apos;authorization&apos;, &apos;content-type&apos;, &apos;dnt&apos;, &apos;origin&apos;, &apos;user-agent&apos;, &apos;x-csrftoken&apos;, &apos;x-requested-with&apos;, &apos;Pragma&apos;,)###########################################]]></content>
       <categories>
-          
-          <category> python, Django </category>
-          
+        <category>python</category>
+        <category>Django</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python, Django </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>python 定时任务</title>
-      <link href="/2018/08/20/python%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
-      <url>/2018/08/20/python%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
-      <content type="html"><![CDATA[<h2 id="自己写一个定时任务"><a href="#自己写一个定时任务" class="headerlink" title="自己写一个定时任务"></a>自己写一个定时任务</h2><h3 id="首先创建一个执行时间"><a href="#首先创建一个执行时间" class="headerlink" title="首先创建一个执行时间"></a>首先创建一个执行时间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sch_time = datetime.datetime(2018,8,20,10,0,0)</span><br></pre></td></tr></table></figure><h3 id="写一个函数用来测试定时任务是否执行"><a href="#写一个函数用来测试定时任务是否执行" class="headerlink" title="写一个函数用来测试定时任务是否执行"></a>写一个函数用来测试定时任务是否执行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def fun(str_msg):</span><br><span class="line">    print(&quot;hello I&apos;m run&quot;, str_msg)</span><br></pre></td></tr></table></figure><h3 id="定时任务的功能"><a href="#定时任务的功能" class="headerlink" title="定时任务的功能"></a>定时任务的功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">def sch_fun(sch_time):</span><br><span class="line">    flag = 0 #是否执行</span><br><span class="line">    run_time = sched_timer.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">    # 转换成统一格式的字符串进行比较</span><br><span class="line">    while True:</span><br><span class="line">        now = datetime.datetime.now()</span><br><span class="line">        now_time = now.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">        # 得到当前时间并转换成统一格式的字符串进行比较</span><br><span class="line">        if now_time == run_time and flag == 0:</span><br><span class="line">            fun(&quot;time 1&quot;) # 执行</span><br><span class="line">            flag = 1</span><br><span class="line">        else: # 上面部分就是定时任务的执行，下面是间隔任务处理</span><br><span class="line">            if flag == 1:</span><br><span class="line">                sched_timer = sched_timer+datetime.timedelta(seconds=5)</span><br><span class="line">                run_time = sched_time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">                flag = 0</span><br><span class="line">                # 如果执行过了调到下一个执行时间（5秒后)</span><br><span class="line">            else:</span><br><span class="line">                if sched_timer &lt;= now:</span><br><span class="line">                # 调整时间</span><br><span class="line">                    sched_timer = sched_timer + datetime.timedelta(seconds=5)</span><br><span class="line">                    run_time = sched_timer.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span><br></pre></td></tr></table></figure><p>然后进行调用就可以运行了</p><h2 id="使用schedule"><a href="#使用schedule" class="headerlink" title="使用schedule"></a>使用schedule</h2><p>这个我感觉不怎么好用（但是比自己写的要好） 就贴上从别人那找来的代码好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import schedule</span><br><span class="line">import time,datetime</span><br><span class="line">def job():</span><br><span class="line">    print(&quot;I&apos;m working...&quot;)</span><br><span class="line"></span><br><span class="line">schedule.every(10).minutes.do(job)</span><br><span class="line"># 每10分钟执行一次</span><br><span class="line">schedule.every().hour.do(job)</span><br><span class="line"># 每小时执行一次</span><br><span class="line">schedule.every().day.at(&quot;10:30&quot;).do(job)</span><br><span class="line"># 每天的10：30执行一次</span><br><span class="line">schedule.every().monday.do(job)</span><br><span class="line"># 每周一执行一次</span><br><span class="line">schedule.every().wednesday.at(&quot;13:14&quot;).do(job)</span><br><span class="line"># 每个星期三的13：14分执行一次</span><br><span class="line"># 在job后面直接加参数即可传参‘，’分隔</span><br><span class="line">while True:</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(1)</span><br><span class="line"># time.sleep(1)这里就是我运行时发现麻烦的地方！</span><br><span class="line"># 不sleep他就会一直占用cpu运行判断是否到了执行时间</span><br></pre></td></tr></table></figure></p><h2 id="使用APscheduler"><a href="#使用APscheduler" class="headerlink" title="使用APscheduler"></a>使用APscheduler</h2><p>安装包的包名就是apscheduler</p><h3 id="引入包"><a href="#引入包" class="headerlink" title="引入包"></a>引入包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from apscheduler.schedulers.blocking import BlockingScheduler</span><br></pre></td></tr></table></figure><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p>这里只写了执行的流程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 初始化</span><br><span class="line">sche = BlockingScheduler()</span><br><span class="line"># 增加任务</span><br><span class="line">sche.add_job(任务)</span><br><span class="line"># 执行</span><br><span class="line">sche.start()</span><br></pre></td></tr></table></figure></p><h3 id="定义执行的任务"><a href="#定义执行的任务" class="headerlink" title="定义执行的任务"></a>定义执行的任务</h3><p>这个是要在定时任务里执行的方法（函数）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def my_job(str_msg):</span><br><span class="line">    # 定义执行的任务</span><br><span class="line">    print(&quot;hello run!!!!&quot;,str_msg)</span><br></pre></td></tr></table></figure></p><h3 id="增加间隔式的任务"><a href="#增加间隔式的任务" class="headerlink" title="增加间隔式的任务"></a>增加间隔式的任务</h3><p>间隔式任务我这里是指不管现实的时间，只管运行时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 参数（函数名，类型，关键字参数）</span><br><span class="line">sched.add_job(my_job, &apos;interval&apos;, seconds=20, args=(&quot;seconds 20&quot;,))</span><br><span class="line"># 每隔20秒运行</span><br><span class="line">sched.add_job(my_job, &apos;interval&apos;,hours=1, minutes=1, seconds=1, args=(&quot;minute 1 seconds 1&quot;,))</span><br><span class="line"># 每隔一个小时一分一秒运行</span><br></pre></td></tr></table></figure></p><h3 id="增加定时式的任务"><a href="#增加定时式的任务" class="headerlink" title="增加定时式的任务"></a>增加定时式的任务</h3><p>定时任务是指与现实时间挂钩<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sched.add_job(my_job, &apos;cron&apos;, second=11, args=(&quot;every second 11&quot;,))</span><br><span class="line"># 每分钟的11s</span><br><span class="line">sched.add_job(my_job, &apos;cron&apos;, minute=3, args=(&quot;ever minute 3&quot;,))</span><br><span class="line"># 每小时的第3分钟</span><br></pre></td></tr></table></figure></p><h3 id="更多的参数请参考"><a href="#更多的参数请参考" class="headerlink" title="更多的参数请参考"></a>更多的参数请参考</h3><p>本文参考地址：(<a href="https://www.cnblogs.com/luxiaojun/p/6567132.html#[3990018]" target="_blank" rel="noopener">https://www.cnblogs.com/luxiaojun/p/6567132.html#[3990018]</a>)</p>]]></content>
-      
+      <tags>
+        <tag>python</tag>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python 定时任务]]></title>
+    <url>%2F2018%2F08%2F20%2Fpython%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[自己写一个定时任务首先创建一个执行时间1sch_time = datetime.datetime(2018,8,20,10,0,0) 写一个函数用来测试定时任务是否执行12def fun(str_msg): print(&quot;hello I&apos;m run&quot;, str_msg) 定时任务的功能12345678910111213141516171819202122def sch_fun(sch_time): flag = 0 #是否执行 run_time = sched_timer.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) # 转换成统一格式的字符串进行比较 while True: now = datetime.datetime.now() now_time = now.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) # 得到当前时间并转换成统一格式的字符串进行比较 if now_time == run_time and flag == 0: fun(&quot;time 1&quot;) # 执行 flag = 1 else: # 上面部分就是定时任务的执行，下面是间隔任务处理 if flag == 1: sched_timer = sched_timer+datetime.timedelta(seconds=5) run_time = sched_time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) flag = 0 # 如果执行过了调到下一个执行时间（5秒后) else: if sched_timer &lt;= now: # 调整时间 sched_timer = sched_timer + datetime.timedelta(seconds=5) run_time = sched_timer.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;) 然后进行调用就可以运行了 使用schedule这个我感觉不怎么好用（但是比自己写的要好） 就贴上从别人那找来的代码好了123456789101112131415161718192021import scheduleimport time,datetimedef job(): print(&quot;I&apos;m working...&quot;)schedule.every(10).minutes.do(job)# 每10分钟执行一次schedule.every().hour.do(job)# 每小时执行一次schedule.every().day.at(&quot;10:30&quot;).do(job)# 每天的10：30执行一次schedule.every().monday.do(job)# 每周一执行一次schedule.every().wednesday.at(&quot;13:14&quot;).do(job)# 每个星期三的13：14分执行一次# 在job后面直接加参数即可传参‘，’分隔while True: schedule.run_pending() time.sleep(1)# time.sleep(1)这里就是我运行时发现麻烦的地方！# 不sleep他就会一直占用cpu运行判断是否到了执行时间 使用APscheduler安装包的包名就是apscheduler 引入包1from apscheduler.schedulers.blocking import BlockingScheduler 使用方式这里只写了执行的流程123456# 初始化sche = BlockingScheduler()# 增加任务sche.add_job(任务)# 执行sche.start() 定义执行的任务这个是要在定时任务里执行的方法（函数）123def my_job(str_msg): # 定义执行的任务 print(&quot;hello run!!!!&quot;,str_msg) 增加间隔式的任务间隔式任务我这里是指不管现实的时间，只管运行时间12345# 参数（函数名，类型，关键字参数）sched.add_job(my_job, &apos;interval&apos;, seconds=20, args=(&quot;seconds 20&quot;,))# 每隔20秒运行sched.add_job(my_job, &apos;interval&apos;,hours=1, minutes=1, seconds=1, args=(&quot;minute 1 seconds 1&quot;,))# 每隔一个小时一分一秒运行 增加定时式的任务定时任务是指与现实时间挂钩1234sched.add_job(my_job, &apos;cron&apos;, second=11, args=(&quot;every second 11&quot;,))# 每分钟的11ssched.add_job(my_job, &apos;cron&apos;, minute=3, args=(&quot;ever minute 3&quot;,))# 每小时的第3分钟 更多的参数请参考本文参考地址：(https://www.cnblogs.com/luxiaojun/p/6567132.html#[3990018])]]></content>
       <categories>
-          
-          <category> python </category>
-          
+        <category>python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>hasattr 对字典使用无效</title>
-      <link href="/2018/08/16/%E5%AF%B9dict%E4%BD%BF%E7%94%A8hasattr%E7%9A%84%E9%94%99%E8%AF%AF/"/>
-      <url>/2018/08/16/%E5%AF%B9dict%E4%BD%BF%E7%94%A8hasattr%E7%9A%84%E9%94%99%E8%AF%AF/</url>
-      <content type="html"><![CDATA[<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>今天在判断字典的内容的时候使用了hasattr来判断字典中是否有这个key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hasattr(dict,key)</span><br></pre></td></tr></table></figure></p><p>这样做是错误的，在运行时无法达到我所预期的效果</p><h2 id="正确的做法："><a href="#正确的做法：" class="headerlink" title="正确的做法："></a>正确的做法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key in dict.keys()</span><br></pre></td></tr></table></figure><p>由于自己已经这样用了多次，记录一下提醒自己</p>]]></content>
-      
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hasattr 对字典使用无效]]></title>
+    <url>%2F2018%2F08%2F16%2F%E5%AF%B9dict%E4%BD%BF%E7%94%A8hasattr%E7%9A%84%E9%94%99%E8%AF%AF%2F</url>
+    <content type="text"><![CDATA[原因今天在判断字典的内容的时候使用了hasattr来判断字典中是否有这个key1hasattr(dict,key) 这样做是错误的，在运行时无法达到我所预期的效果 正确的做法：1key in dict.keys() 由于自己已经这样用了多次，记录一下提醒自己]]></content>
       <categories>
-          
-          <category> python </category>
-          
+        <category>python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> errorUse </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Explain</title>
-      <link href="/2018/07/31/Explain/"/>
-      <url>/2018/07/31/Explain/</url>
-      <content type="html"><![CDATA[<h2 id="个人速写"><a href="#个人速写" class="headerlink" title="个人速写"></a>个人速写</h2><p>编程语言：<br>    在校期间使用：java<br>    工作时使用： python<br>使用过的框架：<br>    Java    spring  spring-mvc mybatis<br>    python    django uwsgi Nginx djangoRESTframework<br>开始写博客时间 2018-07-30</p><h3 id="学习经历"><a href="#学习经历" class="headerlink" title="学习经历"></a>学习经历</h3><p>2018 毕业于湖南师范大学</p><h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>工作单位：深圳兴导科技<br>工作时间：2018.06.13-至今</p>]]></content>
-      
+      <tags>
+        <tag>errorUse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Explain]]></title>
+    <url>%2F2018%2F07%2F31%2FExplain%2F</url>
+    <content type="text"><![CDATA[个人速写编程语言： 在校期间使用：java 工作时使用： python使用过的框架： Java spring spring-mvc mybatis python django uwsgi Nginx djangoRESTframework开始写博客时间 2018-07-30 学习经历2018 毕业于湖南师范大学 工作工作单位：深圳兴导科技工作时间：2018.06.13-至今]]></content>
       <categories>
-          
-          <category> article </category>
-          
+        <category>article</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> article </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>python sorted compare</title>
-      <link href="/2018/07/31/python-sorted-and-obj-sorted-compare/"/>
-      <url>/2018/07/31/python-sorted-and-obj-sorted-compare/</url>
-      <content type="html"><![CDATA[<h2 id="MySortData"><a href="#MySortData" class="headerlink" title="MySortData"></a>MySortData</h2><p>Now that I have some data and need to sort it, I need to find a faster sorting method in the sorting method.Data as shown below:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="number">1</span>:&#123;<span class="string">'total_score'</span>:<span class="number">50</span>, <span class="string">'compare_score'</span>:<span class="number">49</span>, <span class="string">'name'</span>:<span class="string">'roc'</span>&#125;,.....&#125;</span><br></pre></td></tr></table></figure></p><p>The above is a set of data, and I need to sort them according to the score fieldin the dictionary</p><h2 id="Compare-sorted-obj-sort"><a href="#Compare-sorted-obj-sort" class="headerlink" title="Compare sorted() obj.sort()"></a>Compare sorted() obj.sort()</h2><p>I try sorted() Methon:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sorted(data.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>][<span class="string">'total_score'</span>], reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>OK! I get the result!  it’s average run time is : 7.5841E-06<br>And I try obj.sort() Methon:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.sort(key=<span class="keyword">lambda</span> x:x[<span class="string">'compare_score'</span>], reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>it’s average run time is : 6.5666E-06<br>This result doesn’t seem to make any difference</p><h2 id="Use-itemgetter"><a href="#Use-itemgetter" class="headerlink" title="Use itemgetter"></a>Use itemgetter</h2><p>Because of my depth of listing, I can’t use itemgetter directly. So first define it<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get_position = itemgetter(<span class="number">1</span>) <span class="comment"># get index 1</span></span><br><span class="line">get_compare = itemgetter(<span class="string">'compare_score'</span>) <span class="comment"># get compare_score data</span></span><br><span class="line">get_total = itemgetter(<span class="string">'total_score'</span>) <span class="comment"># get total_score data</span></span><br></pre></td></tr></table></figure></p><p>Now use sorted():<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = sorted(data.items(), key=<span class="keyword">lambda</span> x: get_total(get_position(x)), reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>Average run time: 1.18327E-05<br>??????????????????</p><p>See sort():<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result.sort(key=<span class="keyword">lambda</span> x: get_compare(get_position(x)), reverse=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>Average run time: 1.01018E-05</p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>From the above results, we can see that there is not much difference between using sorted () and using obj. sort (), and obj. sort () may be a little bit faster. But the speed difference with itemgetter is very large.</p>]]></content>
-      
+      <tags>
+        <tag>article</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python sorted compare]]></title>
+    <url>%2F2018%2F07%2F31%2Fpython-sorted-and-obj-sorted-compare%2F</url>
+    <content type="text"><![CDATA[MySortDataNow that I have some data and need to sort it, I need to find a faster sorting method in the sorting method.Data as shown below:1data = &#123;1:&#123;'total_score':50, 'compare_score':49, 'name':'roc'&#125;,.....&#125; The above is a set of data, and I need to sort them according to the score fieldin the dictionary Compare sorted() obj.sort()I try sorted() Methon:1result = sorted(data.items(), key=lambda x:x[1]['total_score'], reverse=True) OK! I get the result! it’s average run time is : 7.5841E-06And I try obj.sort() Methon:1result.sort(key=lambda x:x['compare_score'], reverse=True) it’s average run time is : 6.5666E-06This result doesn’t seem to make any difference Use itemgetterBecause of my depth of listing, I can’t use itemgetter directly. So first define it123get_position = itemgetter(1) # get index 1get_compare = itemgetter('compare_score') # get compare_score dataget_total = itemgetter('total_score') # get total_score data Now use sorted():1result = sorted(data.items(), key=lambda x: get_total(get_position(x)), reverse=True) Average run time: 1.18327E-05?????????????????? See sort():1result.sort(key=lambda x: get_compare(get_position(x)), reverse=True) Average run time: 1.01018E-05 SummaryFrom the above results, we can see that there is not much difference between using sorted () and using obj. sort (), and obj. sort () may be a little bit faster. But the speed difference with itemgetter is very large.]]></content>
       <categories>
-          
-          <category> python </category>
-          
+        <category>python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2018/07/30/hello-world/"/>
-      <url>/2018/07/30/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to [Hexo] This is your very first post. Check [documentation] for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting] or you can ask me on [GitHub]</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: [Writing]</p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: [Server]</p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: [Generating]</p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: [Deployment]</p>]]></content>
-      
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2018%2F07%2F30%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to [Hexo] This is your very first post. Check [documentation] for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting] or you can ask me on [GitHub] Quick StartCreate a new post1$ hexo new "My New Post" More info: [Writing] Run server1$ hexo server More info: [Server] Generate static files1$ hexo generate More info: [Generating] Deploy to remote sites1$ hexo deploy More info: [Deployment]]]></content>
       <categories>
-          
-          <category> test </category>
-          
+        <category>test</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> test </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
 </search>
