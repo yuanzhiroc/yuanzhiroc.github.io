@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="SQL," />
 
 
 
@@ -84,17 +84,18 @@
 
 
 
-<meta name="description" content="yuanzhiroc&apos;s blog">
-<meta name="keywords" content="blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yuanzhiroc&#39;s blogs">
-<meta property="og:url" content="https://yuanzhiroc.github.io/tags/article/index.html">
+<meta name="description" content="SQL分组查询">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL 分组查询">
+<meta property="og:url" content="https://yuanzhiroc.github.io/2018/09/12/SQL-分组查询及CASE-WHEN/index.html">
 <meta property="og:site_name" content="yuanzhiroc&#39;s blogs">
-<meta property="og:description" content="yuanzhiroc&apos;s blog">
+<meta property="og:description" content="SQL分组查询">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-13T07:20:46.905Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yuanzhiroc&#39;s blogs">
-<meta name="twitter:description" content="yuanzhiroc&apos;s blog">
+<meta name="twitter:title" content="SQL 分组查询">
+<meta name="twitter:description" content="SQL分组查询">
 
 
 
@@ -112,7 +113,7 @@
   };
 </script>
 
-  <title> Tag: article | yuanzhiroc's blogs </title>
+  <title> SQL 分组查询 | yuanzhiroc's blogs </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -133,7 +134,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right  ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,46 +265,149 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        article
-        <small>Tag</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SQL 分组查询
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2018-09-12T14:47:04+08:00" content="2018-09-12">
+              2018-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>在出租日志表中查询出今天所有用户的使用时长。用户使用时长不固定，次数不固定</p>
+<h2 id="查询分析"><a href="#查询分析" class="headerlink" title="查询分析"></a>查询分析</h2><p>先查询今天所有的记录，然后根据用户的id进行分组，将同一用户的使用时长进行统计</p>
+<h2 id="case-WHEN-的使用"><a href="#case-WHEN-的使用" class="headerlink" title="case WHEN 的使用"></a>case WHEN 的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ABS(timestampdiff(Hour,case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 00:00:00&apos; end,</span><br><span class="line">           case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 08:00:00&apos; end))</span><br></pre></td></tr></table></figure>
+<h2 id="第一版SQL"><a href="#第一版SQL" class="headerlink" title="第一版SQL"></a>第一版SQL</h2><p>内容包括：根据用户的开始使用时间来判断用户是否是连续的在使用，并计算今天的使用时长。分组排序限制条目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">user_id, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else  ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_time</span><br><span class="line">FROM</span><br><span class="line">use_record  GROUP BY user_id ORDER BY use_time DESC LIMIT 50</span><br></pre></td></tr></table></figure></p>
+<h2 id="第二版SQL"><a href="#第二版SQL" class="headerlink" title="第二版SQL"></a>第二版SQL</h2><p>由于用户ID展示出来很不好看，需要将用户名称展示出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">a.username, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else  ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_time</span><br><span class="line">FROM</span><br><span class="line">use_record as b</span><br><span class="line">LEFT JOIN pre_ucenter_members as a ON b.user_id = a.uid GROUP BY a.username ORDER BY use_time DESC LIMIT 50</span><br></pre></td></tr></table></figure></p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2018/07/31/Explain/" itemprop="url">
-              
-                <span itemprop="name">Explain</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-31T11:59:16+08:00"
-              content="2018-07-31" >
-          07-31
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag">#SQL</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/08/python-逆向生成MODELS/" rel="next" title="python 逆向生成Models求">
+                <i class="fa fa-chevron-left"></i> python 逆向生成Models求
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -311,6 +415,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -330,8 +438,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/blog-logo.jpg"
@@ -381,6 +498,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查询分析"><span class="nav-number">1.1.</span> <span class="nav-text">查询分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-WHEN-的使用"><span class="nav-number">1.2.</span> <span class="nav-text">case WHEN 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一版SQL"><span class="nav-number">1.3.</span> <span class="nav-text">第一版SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二版SQL"><span class="nav-number">1.4.</span> <span class="nav-text">第二版SQL</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -496,6 +624,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="SQL," />
 
 
 
@@ -84,17 +84,18 @@
 
 
 
-<meta name="description" content="yuanzhiroc&apos;s blog">
-<meta name="keywords" content="blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yuanzhiroc&#39;s blogs">
-<meta property="og:url" content="https://yuanzhiroc.github.io/tags/article/index.html">
+<meta name="description" content="SQL UPDATE更新多条记录中的一条">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL UPDATE更新多条记录中的一条">
+<meta property="og:url" content="https://yuanzhiroc.github.io/2018/09/07/UPDATE-语句更新多条记录中的一条/index.html">
 <meta property="og:site_name" content="yuanzhiroc&#39;s blogs">
-<meta property="og:description" content="yuanzhiroc&apos;s blog">
+<meta property="og:description" content="SQL UPDATE更新多条记录中的一条">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-13T07:20:53.210Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yuanzhiroc&#39;s blogs">
-<meta name="twitter:description" content="yuanzhiroc&apos;s blog">
+<meta name="twitter:title" content="SQL UPDATE更新多条记录中的一条">
+<meta name="twitter:description" content="SQL UPDATE更新多条记录中的一条">
 
 
 
@@ -112,7 +113,7 @@
   };
 </script>
 
-  <title> Tag: article | yuanzhiroc's blogs </title>
+  <title> SQL UPDATE更新多条记录中的一条 | yuanzhiroc's blogs </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -133,7 +134,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right  ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,46 +265,153 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        article
-        <small>Tag</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SQL UPDATE更新多条记录中的一条
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2018-09-07T14:47:04+08:00" content="2018-09-07">
+              2018-09-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h1 id="问题环境"><a href="#问题环境" class="headerlink" title="问题环境"></a>问题环境</h1><p>数据库中有这样一张表record<br>id | box | paper | owner_id<br>– | – | – | –<br>1 | 1 | 0 | NULL<br>2 | 1 | 1 | NULL<br>3 | 1 | 2 | NULL<br>4 | 2 | 0 | NULL<br>5 | 2 | 1 | NULL<br>6 | 2 | 2 | NULL<br>7 | 2 | 3 | NULL</p>
+<h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>我有这样一条查询语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update record set owner_id = user_id where box = 1 and owner_id is NULL</span><br></pre></td></tr></table></figure></p>
+<p>本来的目的是想让一个用户占用一个盒子空纸张的记录，但这样的查询语句会让用户成为盒子里所有纸张的占有者</p>
+<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>经过查询后的解决方案：LIMIT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE record set owner_id = user_id where box = 1 and owner_id is NULL limit 1</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以让更新的数据只作用于一条</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2018/07/31/Explain/" itemprop="url">
-              
-                <span itemprop="name">Explain</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-31T11:59:16+08:00"
-              content="2018-07-31" >
-          07-31
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag">#SQL</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/07/Django-跨域请求/" rel="next" title="Django 跨域请求">
+                <i class="fa fa-chevron-left"></i> Django 跨域请求
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/08/python-逆向生成MODELS/" rel="prev" title="python 逆向生成Models求">
+                python 逆向生成Models求 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -311,6 +419,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -330,8 +442,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/blog-logo.jpg"
@@ -381,6 +502,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题环境"><span class="nav-number">1.</span> <span class="nav-text">问题环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题原因"><span class="nav-number">2.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决问题"><span class="nav-number">3.</span> <span class="nav-text">解决问题</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -496,6 +628,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

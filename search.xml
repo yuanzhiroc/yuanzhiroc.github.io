@@ -3,6 +3,90 @@
   
     
     <entry>
+      <title>SQL 分组查询</title>
+      <link href="/2018/09/12/SQL-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E5%8F%8ACASE-WHEN/"/>
+      <url>/2018/09/12/SQL-%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E5%8F%8ACASE-WHEN/</url>
+      <content type="html"><![CDATA[<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>在出租日志表中查询出今天所有用户的使用时长。用户使用时长不固定，次数不固定</p><h2 id="查询分析"><a href="#查询分析" class="headerlink" title="查询分析"></a>查询分析</h2><p>先查询今天所有的记录，然后根据用户的id进行分组，将同一用户的使用时长进行统计</p><h2 id="case-WHEN-的使用"><a href="#case-WHEN-的使用" class="headerlink" title="case WHEN 的使用"></a>case WHEN 的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT ABS(timestampdiff(Hour,case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 00:00:00&apos; end,</span><br><span class="line">           case when 1&gt;2 then &apos;2018-09-10 00:00:00&apos; else &apos;2018-09-11 08:00:00&apos; end))</span><br></pre></td></tr></table></figure><h2 id="第一版SQL"><a href="#第一版SQL" class="headerlink" title="第一版SQL"></a>第一版SQL</h2><p>内容包括：根据用户的开始使用时间来判断用户是否是连续的在使用，并计算今天的使用时长。分组排序限制条目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">user_id, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else  ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_time</span><br><span class="line">FROM</span><br><span class="line">use_record  GROUP BY user_id ORDER BY use_time DESC LIMIT 50</span><br></pre></td></tr></table></figure></p><h2 id="第二版SQL"><a href="#第二版SQL" class="headerlink" title="第二版SQL"></a>第二版SQL</h2><p>由于用户ID展示出来很不好看，需要将用户名称展示出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">a.username, sum(case when start_time&gt;&apos;2018-09-11 00:00:00&apos; then used_time else  ABS(timestampdiff(Minute,end_time,&apos;2018-09-11 00:00:00&apos;)) end) as use_time</span><br><span class="line">FROM</span><br><span class="line">use_record as b</span><br><span class="line">LEFT JOIN pre_ucenter_members as a ON b.user_id = a.uid GROUP BY a.username ORDER BY use_time DESC LIMIT 50</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      <categories>
+          
+          <category> SQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>python 逆向生成Models求</title>
+      <link href="/2018/09/08/python-%E9%80%86%E5%90%91%E7%94%9F%E6%88%90MODELS/"/>
+      <url>/2018/09/08/python-%E9%80%86%E5%90%91%E7%94%9F%E6%88%90MODELS/</url>
+      <content type="html"><![CDATA[<h1 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h1><blockquote><p>python manage.py inspectdb &gt; models.py</p></blockquote><h1 id="sqlachemy"><a href="#sqlachemy" class="headerlink" title="sqlachemy"></a>sqlachemy</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 必须先安装sqlacodegen</span><br><span class="line">sqlacodegen mysql+pymysql://user:password@IP_ADDR:3306/database_name &gt; models.py</span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> python, Django, SQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python, Django, SQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>SQL UPDATE更新多条记录中的一条</title>
+      <link href="/2018/09/07/UPDATE-%E8%AF%AD%E5%8F%A5%E6%9B%B4%E6%96%B0%E5%A4%9A%E6%9D%A1%E8%AE%B0%E5%BD%95%E4%B8%AD%E7%9A%84%E4%B8%80%E6%9D%A1/"/>
+      <url>/2018/09/07/UPDATE-%E8%AF%AD%E5%8F%A5%E6%9B%B4%E6%96%B0%E5%A4%9A%E6%9D%A1%E8%AE%B0%E5%BD%95%E4%B8%AD%E7%9A%84%E4%B8%80%E6%9D%A1/</url>
+      <content type="html"><![CDATA[<h1 id="问题环境"><a href="#问题环境" class="headerlink" title="问题环境"></a>问题环境</h1><p>数据库中有这样一张表record<br>id | box | paper | owner_id<br>– | – | – | –<br>1 | 1 | 0 | NULL<br>2 | 1 | 1 | NULL<br>3 | 1 | 2 | NULL<br>4 | 2 | 0 | NULL<br>5 | 2 | 1 | NULL<br>6 | 2 | 2 | NULL<br>7 | 2 | 3 | NULL</p><h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>我有这样一条查询语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update record set owner_id = user_id where box = 1 and owner_id is NULL</span><br></pre></td></tr></table></figure></p><p>本来的目的是想让一个用户占用一个盒子空纸张的记录，但这样的查询语句会让用户成为盒子里所有纸张的占有者</p><h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>经过查询后的解决方案：LIMIT<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE record set owner_id = user_id where box = 1 and owner_id is NULL limit 1</span><br></pre></td></tr></table></figure></p><p>这样就可以让更新的数据只作用于一条</p>]]></content>
+      
+      <categories>
+          
+          <category> SQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Django 跨域请求</title>
+      <link href="/2018/09/07/Django-%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
+      <url>/2018/09/07/Django-%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/</url>
+      <content type="html"><![CDATA[<h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>暂时也没有了解问题的原因是怎样的，直接说解决方法吧</p><h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="安装corsheaders"><a href="#安装corsheaders" class="headerlink" title="安装corsheaders"></a>安装corsheaders</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; pip install corsheaders</span><br></pre></td></tr></table></figure><h2 id="settings文件"><a href="#settings文件" class="headerlink" title="settings文件"></a>settings文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">ALLOW_HOSTS = [&apos;*&apos;] # 允许访问的地址</span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = True</span><br><span class="line">CORS_ALLOW_HEADERS = ( # 允许添加自定义的头部HEADER</span><br><span class="line">    &apos;Uid&apos;, # 自定义</span><br><span class="line">    &apos;Authorization&apos; # 这个默认会有</span><br><span class="line">)</span><br><span class="line">CORS_ALLOW_METHODS = (</span><br><span class="line">    &apos;*&apos;</span><br><span class="line">    # &apos;GET&apos;,</span><br><span class="line">    # &apos;POST&apos;,</span><br><span class="line">    # &apos;OPTIONS&apos;,</span><br><span class="line">)</span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    &apos;corsheaders&apos;,</span><br><span class="line">    .....</span><br><span class="line">]</span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    &apos;corsheaders.middleware.CorsMiddleware&apos;,</span><br><span class="line">    &apos;django.middleware.common.CommonMiddleware&apos;,</span><br><span class="line">    ....</span><br><span class="line">]</span><br><span class="line"># 示范 #################################</span><br><span class="line">CORS_ORIGIN_WHITELIST = (</span><br><span class="line">    &apos;*&apos;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">CORS_ALLOW_METHODS = (</span><br><span class="line">    &apos;DELETE&apos;,</span><br><span class="line">    &apos;GET&apos;,</span><br><span class="line">    &apos;OPTIONS&apos;,</span><br><span class="line">    &apos;PATCH&apos;,</span><br><span class="line">    &apos;POST&apos;,</span><br><span class="line">    &apos;PUT&apos;,</span><br><span class="line">    &apos;VIEW&apos;,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">CORS_ALLOW_HEADERS = (</span><br><span class="line">    &apos;XMLHttpRequest&apos;,</span><br><span class="line">    &apos;X_FILENAME&apos;,</span><br><span class="line">    &apos;accept-encoding&apos;,</span><br><span class="line">    &apos;authorization&apos;,</span><br><span class="line">    &apos;content-type&apos;,</span><br><span class="line">    &apos;dnt&apos;,</span><br><span class="line">    &apos;origin&apos;,</span><br><span class="line">    &apos;user-agent&apos;,</span><br><span class="line">    &apos;x-csrftoken&apos;,</span><br><span class="line">    &apos;x-requested-with&apos;,</span><br><span class="line">    &apos;Pragma&apos;,</span><br><span class="line">)</span><br><span class="line">###########################################</span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> python, Django </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python, Django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>python 定时任务</title>
       <link href="/2018/08/20/python%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
       <url>/2018/08/20/python%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
