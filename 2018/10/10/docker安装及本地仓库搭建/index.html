@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="docker," />
 
 
 
@@ -84,17 +84,18 @@
 
 
 
-<meta name="description" content="yuanzhiroc&apos;s blog">
-<meta name="keywords" content="blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yuanzhiroc&#39;s blogs">
-<meta property="og:url" content="https://yuanzhiroc.github.io/categories/test/index.html">
+<meta name="description" content="docker 安装及本地仓库的使用">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker 安装及本地仓库的使用">
+<meta property="og:url" content="https://yuanzhiroc.github.io/2018/10/10/docker安装及本地仓库搭建/index.html">
 <meta property="og:site_name" content="yuanzhiroc&#39;s blogs">
-<meta property="og:description" content="yuanzhiroc&apos;s blog">
+<meta property="og:description" content="docker 安装及本地仓库的使用">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-10T02:23:08.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yuanzhiroc&#39;s blogs">
-<meta name="twitter:description" content="yuanzhiroc&apos;s blog">
+<meta name="twitter:title" content="docker 安装及本地仓库的使用">
+<meta name="twitter:description" content="docker 安装及本地仓库的使用">
 
 
 
@@ -112,7 +113,7 @@
   };
 </script>
 
-  <title> Category: test | yuanzhiroc's blogs </title>
+  <title> docker 安装及本地仓库的使用 | yuanzhiroc's blogs </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -133,7 +134,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right  ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,47 +265,156 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        test
-        <small>Category</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                docker 安装及本地仓库的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2018-10-10T10:20:04+08:00" content="2018-10-10">
+              2018-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h1 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h1><p>将下面的内容复制到bash脚本中执行即可安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 指定加入docker组的用户</span><br><span class="line">read -p &quot;please input the username for join docker:&quot; user</span><br><span class="line">#一、安装docker</span><br><span class="line">sudo apt-get remove docker docker-engine docker.io -y</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line">sudo add-apt-repository &quot;deb [arch=amd68] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; -y</span><br><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install docker-ce -y</span><br><span class="line">#二、安装 nvidia-docker2</span><br><span class="line">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -</span><br><span class="line">distribution=$(. /etc/os-release;echo $ID$VERSION_ID)</span><br><span class="line">curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span><br><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install -y nvidia-docker2</span><br><span class="line">sudo pkill -SIGHUP dockerd</span><br><span class="line">sudo gpasswd -a $user docker</span><br><span class="line">sudo service docker restart</span><br><span class="line">newgrp - docker</span><br><span class="line">#指定IP</span><br><span class="line">docker network create --subnet=172.18.0.0/16 mynetwork</span><br><span class="line">#三、安装nfs服务</span><br><span class="line">sudo apt install nfs-common -y</span><br><span class="line">sudo cat /etc/default/grub | sed -r &apos;s/GRUB_CMDLINE_LINUX=&quot;&quot;/GRUB_CMDLINE_LINUX=&quot;cgroup_enable=memory swapaccount=1&quot;/g&apos; &gt; ./grub</span><br><span class="line">sudo mv ./grub /etc/default/grub</span><br><span class="line">sudo update-grub</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure></p>
+<h1 id="docker本地仓库的搭建"><a href="#docker本地仓库的搭建" class="headerlink" title="docker本地仓库的搭建"></a>docker本地仓库的搭建</h1><p>搭建流程如下：</p>
+<ol>
+<li>确认安装docker</li>
+</ol>
+<p>2.启动docker 在启动前先执行第6部就不用多次重启了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service docker restart</span><br><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure></p>
+<p>3.下载registry镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry</span><br></pre></td></tr></table></figure></p>
+<p>4.启动镜像 –privileged=true 是在redhat中会用到的。默认情况下仓库存放于容器内的/var/lib/registry目录下，如果容器被删除，则存放于容器中的镜像也会丢失，所以我们会指定本地一个目录（刚刚创建的~/docker）挂载到容器内的/var/lib/registry下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#</span><br><span class="line">docker run -d -p 5000:5000 --privileged=true -v ~/docker:/var/lib/registry registry</span><br></pre></td></tr></table></figure></p>
+<p>这一步后就可以访问<a href="http://IP：5000" target="_blank" rel="noopener">http://IP：5000</a><br>5.上传容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag centos 192.168.0.179:5000/centos</span><br><span class="line">docker push 192.168.0.179:5000/centos</span><br></pre></td></tr></table></figure></p>
+<p>6.注意不管是上传下载都需要将下面的键值对写入:/etc/docker/daemon.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;insecure-registries&quot;: [&quot;127.0.0.1:5000&quot;]</span><br><span class="line">&#125;</span><br><span class="line"># 127.0.0.1写成你的IP地址</span><br><span class="line"># 记得逗号隔开，写在第一个大括号里面</span><br></pre></td></tr></table></figure></p>
+<p>7.查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://registryIP:5000/v2/_catalog</span><br><span class="line">curl -XGET http://registryIP:5000/v2/$image_name/tags/list</span><br><span class="line"># image_name是从_catalog中查看得到的</span><br></pre></td></tr></table></figure></p>
+<p>到这里就搭建好了本地仓库了</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2018/07/30/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-30T17:47:00+08:00"
-              content="2018-07-30" >
-          07-30
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag">#docker</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/SQL-分组查询及CASE-WHEN/" rel="next" title="SQL 分组查询">
+                <i class="fa fa-chevron-left"></i> SQL 分组查询
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -312,6 +422,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -331,8 +445,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/blog-logo.jpg"
@@ -382,6 +505,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装docker"><span class="nav-number">1.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker本地仓库的搭建"><span class="nav-number">2.</span> <span class="nav-text">docker本地仓库的搭建</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -497,6 +631,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
